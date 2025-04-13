@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Do you love me, Kashish?</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: Arial, sans-serif;
+      background-color: #ffe0f0; /* Pink background */
+      position: relative;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+      text-align: center;
+      z-index: 1;
+    }
+    .btn {
+      padding: 12px 25px;
+      margin: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 1;
+      position: relative;
+    }
+    .yes {
+      background-color: #4caf50;
+      color: white;
+    }
+    .no {
+      background-color: #f44336;
+      color: white;
+      position: absolute;
+      left: 20px;
+      top: 60%;
+      transform: translateY(-50%);
+    }
+    .hidden {
+      display: none;
+    }
+    /* Falling Hearts Animation */
+    .heart {
+      position: absolute;
+      color: red;
+      font-size: 24px;
+      animation: fall 5s linear infinite; /* Slower falling speed (5s) */
+    }
+    @keyframes fall {
+      0% {
+        top: -50px;
+        opacity: 1;
+      }
+      100% {
+        top: 100vh;
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="question">Do you love me, Kashish?</h1>
+  <button class="btn yes" id="yesButton">Yes</button>
+  <button class="btn no" id="noButton">No</button>
+
+  <!-- Background Music -->
+  <audio id="backgroundMusic" loop autoplay>
+    <source src="your-music-file.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const noButton = document.getElementById('noButton');
+    const yesButton = document.getElementById('yesButton');
+    const question = document.getElementById('question');
+
+    // Function for the No button to move around the screen
+    noButton.addEventListener('mouseover', () => {
+      const x = Math.floor(Math.random() * (window.innerWidth - noButton.offsetWidth));
+      const y = Math.floor(Math.random() * (window.innerHeight - noButton.offsetHeight));
+      noButton.style.left = `${x}px`;
+      noButton.style.top = `${y}px`;
+    });
+
+    // Function to create falling hearts
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.textContent = '❤️';
+      heart.style.left = `${Math.random() * window.innerWidth}px`;
+      document.body.appendChild(heart);
+
+      // Remove heart after animation
+      setTimeout(() => {
+        heart.remove();
+      }, 5000); // Hearts are removed after 5 seconds
+    }
+
+    // Create hearts at regular intervals
+    setInterval(createHeart, 500); // Every 500ms
+
+    // If Yes is clicked, change text and show the love message
+    yesButton.addEventListener('click', () => {
+      question.textContent = "I love you too, Kashish 💞😘";
+      yesButton.classList.add('hidden');
+      noButton.classList.add('hidden');
+      document.body.style.backgroundColor = "#ffe0f0"; // Change background color
+    });
+  </script>
+
+</body>
+</html>
